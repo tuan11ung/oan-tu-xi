@@ -1,11 +1,12 @@
 let humanScore = 0;
 let computerScore = 0;
 
-let humanChoice = getHumanChoice()
-let computerChoice = getComputerChoice()
+function getRandomInt(num) {
+  return Math.floor(Math.random() * num);
+}
 
 function getComputerChoice() {
-  let computerChoice = Math.random()
+  let computerChoice = getRandomInt(3)
   if (computerChoice == 0) {
     return "Keo"
   } else if (computerChoice == 1) {
@@ -22,38 +23,40 @@ function getHumanChoice() {
 }
 
 function playRound() {
-  if (humanChoice === computerChoice) return console.log('Hoa')
+  let humanChoice = getHumanChoice()
+  let computerChoice = getComputerChoice()
+  if (humanChoice === computerChoice) return console.log(`Hoa, ${humanScore} - ${computerScore}`)
   if (humanChoice == "Bua" && computerChoice == "Keo" || humanChoice == "Keo" && computerChoice == "Bao" || humanChoice == "Bao" && computerChoice == "Bua") {
     humanScore++
-    return console.log(`Thang roi! ${humanChoice} thang ${computerChoice}`)
+    return console.log(`Thang roi! ${humanChoice} thang ${computerChoice}, ${humanScore} - ${computerScore}`)
   }
   else {
     computerScore++
-    return console.log(`Thua roi! ${computerChoice} thang ${humanChoice}` )
+    return console.log(`Thua roi! ${computerChoice} thang ${humanChoice}, ${humanScore} - ${computerScore}` )
   }
 }
 
-
 function playGame() {
-  while (humanScore < 5 || computerScore < 5) {
+  while (humanScore < 5 && computerScore < 5) {
     playRound();
     console.log(`${humanScore} - ${computerScore}`)
   }
   if (humanScore == 5) {
     humanScore = 0;
     computerScore = 0;
-    return console.log("Xin chuc mung ban da thang!!!")
+    console.log("Xin chuc mung ban da thang!!!")
+    playGame()
   } 
   else {
     humanScore = 0;
     computerScore = 0;
-    return console.log("Xin chia buon ban da thua!!!")
+    console.log("Xin chia buon ban da thua!!!")
+    playGame()
   } 
 }
-let endGame = 0;
-// while (humanScore < 5 || computerScore < 5 || endGame == 10) {
-//   playRound();
-//   endGame++
-// }
-// playGame();
+
+playGame()
+
+
+
 
